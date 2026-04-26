@@ -19,10 +19,35 @@ export async function POST(request: Request) {
       );
     }
 
-    await connectMongo();
-    await Booking.create({ ...parsed.data, source: "website" });
+    if (!process.env.MONGODB_URI) {
+      return Response.json(
+        {
+          message: "Booking received. Redirecting to WhatsApp.",
+          persisted: false,
+          warning: "Database is not configured on this deployment yet."
+        },
+        { status: 202 }
+      );
+    }
 
-    return Response.json({ message: "Booking saved and ready for WhatsApp handoff." }, { status: 201 });
+    try {
+      await connectMongo();
+      await Booking.create({ ...parsed.data, source: "website" });
+
+      return Response.json(
+        { message: "Booking saved and ready for WhatsApp handoff.", persisted: true },
+        { status: 201 }
+      );
+    } catch {
+      return Response.json(
+        {
+          message: "Booking received. Redirecting to WhatsApp.",
+          persisted: false,
+          warning: "Booking could not be saved to the database right now."
+        },
+        { status: 202 }
+      );
+    }
   } catch (error) {
     return Response.json(
       {
