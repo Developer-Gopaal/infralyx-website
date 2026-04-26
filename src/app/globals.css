@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --background: #040816;
+  --foreground: #f5f7fb;
+  --muted: rgba(255, 255, 255, 0.7);
+  --glass: rgba(8, 14, 32, 0.55);
+  --glass-strong: rgba(10, 18, 40, 0.72);
+  --border: rgba(255, 255, 255, 0.12);
+  --accent: #4cc3ff;
+  --accent-strong: #1aabff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(76, 195, 255, 0.18), transparent 25%),
+    radial-gradient(circle at 85% 10%, rgba(95, 84, 255, 0.16), transparent 20%),
+    radial-gradient(circle at 50% 85%, rgba(14, 165, 233, 0.14), transparent 26%),
+    linear-gradient(180deg, #040816 0%, #060c1a 44%, #090f1d 100%);
+  color: var(--foreground);
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+  opacity: 0.18;
+}
+
+::selection {
+  background: rgba(76, 195, 255, 0.28);
+  color: white;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.glass-panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glass-input {
+  background: rgba(6, 12, 27, 0.56);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: rgba(76, 195, 255, 0.6);
+  box-shadow: 0 0 0 4px rgba(76, 195, 255, 0.12), 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
